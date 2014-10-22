@@ -7,7 +7,7 @@ function countdownFor(event) {
               + parseInt($("#seconds").val(),10);
 
 
-    if ($("#repeatable").prop("checked")) {
+    if ($("#relative").prop("checked")) {
         params = "s=" + seconds + "&t=" + $("#t").val();
     } else {
         now = new Date()
