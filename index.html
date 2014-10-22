@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" />
+<meta id="viewport" name="viewport" content="width=660" />
+<title>Countdown timer</title>
+<link rel="stylesheet" type="text/css" href="flipclock.css" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="flipclock.min.js"></script>
+</head>
+<body>
+<div id="forms">
+<h1>Countdown timer</h1>
+
+<p>Provide an optional title and a count down target either in terms
+of days, hours, minutes, and seconds or in terms of an ISO 8601 datetime
+value.</p>
+
+<p>Title: <input type="text" id="t" placeholder="title"/></p>
+
+<p>Count down for:</p>
+<form id="for">
+<input type="number" id="days" value="0" /> days,
+<input type="number" id="hours" value="0"
+/>:<input type="number" id="minutes" value="0"
+/>:<input type="number" id="seconds" value="0"
+/>&#160;HH:MM:SS&#160;&#160;<input type="submit" value="Go!" />
+</form>
+
+<p>or count down to:</p>
+
+<form id="to">
+<input type="datetime" id="dt" placeholder="2015-01-01T12:34:56Z"
+/>&#160;&#160;<input type="submit" value="Go!" />
+</form>
+</div>
+
+<div id="timers">
+  <div id="timer">
+    <div id="title"></div>
+    <div id="clock"></div>
+  </div>
+</div>
+
+<div id="new">
+<a href="/countdown">new</a>
+</div>
+
+<script src="countdown.js"></script>
+</body>
+</html>
