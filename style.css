@@ -10,6 +10,10 @@ input[type=text] {
    display: none;
 }
 
+#for {
+   display: none;
+}
+
 #timers {
    display: none;
    height: 80%;

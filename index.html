@@ -16,23 +16,34 @@
 of days, hours, minutes, and seconds or in terms of an ISO 8601 datetime
 value.</p>
 
-<p>Title: <input type="text" id="t" placeholder="title"/></p>
+<p>Timer title: <input type="text" id="t" placeholder="title"/> (optional)</p>
 
-<p>Count down for:</p>
+<p>Count down
+<select id="countdown">
+<option value="to" selected="selected">to</option>
+<option value="for">for</option>
+</select>:</p>
+
+<form id="to">
+<input type="datetime" id="dt" placeholder="2038-01-19T03:14:07Z"
+/>&#160;&#160;<input type="submit" value="Go!" />
+</form>
+
 <form id="for">
-<input type="number" id="days" value="0" /> days,
+<p><input type="number" id="days" value="0" /> days,
 <input type="number" id="hours" value="0"
 />:<input type="number" id="minutes" value="0"
 />:<input type="number" id="seconds" value="0"
-/>&#160;HH:MM:SS&#160;&#160;<input type="submit" value="Go!" />
+/>&#160;HH:MM:SS&#160;&#160;<input type="submit" value="Go!" /></p>
+<p>
+<input type="checkbox" id="relative" /> relative? (or absolute)</p>
+<p>A relative countdown starts over if the page is reloaded. An
+absolute countdown is to a fixed time computed when you press the
+“Go!” button.
+</p>
 </form>
 
-<p>or count down to:</p>
 
-<form id="to">
-<input type="datetime" id="dt" placeholder="2015-01-01T12:34:56Z"
-/>&#160;&#160;<input type="submit" value="Go!" />
-</form>
 </div>
 
 <div id="timers">

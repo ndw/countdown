@@ -6,10 +6,15 @@ function countdownFor(event) {
               + parseInt($("#minutes").val(),10) * 60
               + parseInt($("#seconds").val(),10);
 
-    now = new Date()
-    then = new Date(now.getTime() + (seconds * 1000))
 
-    params = "dt=" + then.toISOString() + "&t=" + $("#t").val();
+    if ($("#repeatable").prop("checked")) {
+        params = "s=" + seconds + "&t=" + $("#t").val();
+    } else {
+        now = new Date()
+        then = new Date(now.getTime() + (seconds * 1000))
+        params = "dt=" + then.toISOString() + "&t=" + $("#t").val();
+    }
+
     window.location = window.location + "?" + params;
 
     return false;
@@ -32,6 +37,7 @@ function queryParameters () {
     var params = window.location.search.split(/\?|\&/);
 
     result["dt"] = "";
+    result["s"] = "";
 
     params.forEach( function(it) {
         if (it) {
@@ -43,19 +49,32 @@ function queryParameters () {
     return result;
 }
 
+function toggleForm() {
+    if ($("#countdown").val() === "to") {
+        $("#for").css("display", "none");
+        $("#to").css("display", "block");
+    } else {
+        $("#for").css("display", "block");
+        $("#to").css("display", "none");
+    }
+}
+
 $(document).ready(function() {
     var params = queryParameters();
     var size, maxwidth, clock, now, dt, diffsecs;
     var face, width;
     var title;
 
-    if (params["dt"] === "") {
+    toggleForm();
+
+    if (params["dt"] === "" && params["s"] === "") {
         $("#forms").css("display","block");
         $("#timers").css("display","none");
         $("#new").css("display","none");
 
-        $("#for").submit(countdownFor)
-        $("#to").submit(countdownTo)
+        $("#for").submit(countdownFor);
+        $("#to").submit(countdownTo);
+        $("#countdown").change(toggleForm);
     } else {
         $("#forms").css("display","none");
         $("#timers").css("display","block");
@@ -65,9 +84,13 @@ $(document).ready(function() {
 
         $("#title").html(title);
 
-        now = new Date().getTime()
-        dt = new Date(Date.parse(params["dt"])).getTime();
-        diffsecs = (dt / 1000) - (now / 1000);
+        if (params["dt"] != "") {
+            now = new Date().getTime()
+            dt = new Date(Date.parse(params["dt"])).getTime();
+            diffsecs = (dt / 1000) - (now / 1000);
+        } else {
+            diffsecs = parseInt(params["s"],10);
+        }
 
         if (diffsecs > 0) {
             // The FlipClock.js face is px based, so there's no scaling...
