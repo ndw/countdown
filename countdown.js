@@ -59,6 +59,21 @@ function toggleForm() {
     }
 }
 
+function timeCheck() {
+    var params = queryParameters();
+    var time = this.factory.getTime().time;
+    if (params["dt"] === "") {
+        // nop
+    } else {
+        if (time) {
+            now = new Date().getTime()
+            dt = new Date(Date.parse(params["dt"])).getTime()
+            diffsecs = (dt / 1000) - (now / 1000)
+            this.factory.setTime(diffsecs)
+        }
+    }
+}
+
 $(document).ready(function() {
     var params = queryParameters();
     var size, maxwidth, clock, now, dt, diffsecs;
@@ -106,7 +121,10 @@ $(document).ready(function() {
 
             clock = $("#clock").FlipClock(diffsecs, {
                 "clockFace": face,
-                "countdown": true
+                "countdown": true,
+                "callbacks": {
+                    "interval": timeCheck
+                }
             });
         } else {
             $("#clock").html("...has already occurred");
